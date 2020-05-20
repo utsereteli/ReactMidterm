@@ -1,23 +1,65 @@
 class Reqres {
-  BaseUrl = 'https://reqres.in/api/';
+    BaseUrl = 'https://reqres.in/api/';
 
-  async registration(data) {
-      const res = await fetch(this.BaseUrl + 'register', {
-          method: 'post',
-          body: JSON.stringify(data)
-      });
+    requestHeaders = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
 
-      return await res.json();
-  }
+    async registration(data) {
+        const resp = await fetch(this.BaseUrl + 'register', {
+            method: 'post',
+            headers: this.requestHeaders,
+            body: JSON.stringify(data)
+        });
 
-  async login(data) {
-      const res = await fetch(this.BaseUrl + 'login', {
-          method: 'post',
-          body: JSON.stringify(data)
-      });
+        return await resp.json();
+    }
 
-      return await res.json();
-  }
+
+    async login(data) {
+        const resp = await fetch(this.BaseUrl + 'login', {
+            method: 'post',
+            headers: this.requestHeaders,
+            body: JSON.stringify(data)
+        });
+
+        return await resp.json();
+    }
+
+    async getUsers(page) {
+        const resp = await fetch(`${this.BaseUrl+'users?page='+page}`);
+        return await resp.json();
+    }
+
+    async createUser(data) {
+        const resp = await fetch(this.BaseUrl + 'users', {
+            method: 'post',
+            headers: this.requestHeaders,
+            body: JSON.stringify(data)
+        });
+
+        return await resp.json();
+    }
+
+    async updateUeser(data, id) {
+        const resp = await fetch(this.BaseUrl + 'users/' + id, {
+            method: 'put',
+            headers: this.requestHeaders,
+            body: JSON.stringify(data)
+        });
+
+        return await resp.json();
+    }
+
+    async deleteUser(id) {
+        const resp = await fetch(this.BaseUrl + 'users/' + id, {
+            method: 'delete',
+            headers: this.requestHeaders,
+        });
+
+        // return await resp.json();
+    }
 }
 
 
